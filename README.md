@@ -3,5 +3,4 @@
 git clone https://github.com/Ivan-Kononchuk/Calculator-on-React.git
 
 ### npm install
-
 ### npm start
