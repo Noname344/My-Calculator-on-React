@@ -9,10 +9,9 @@ class App extends Component{
 		this.state={
 			result: '0',
 		};
-		this.onHistoryItemClicked= this.onHistoryItemClicked.bind(this);
 	}
 
-	calculate=()=>{
+	calculate(){
 		try {
 			var x= (eval(this.state.result)).toString();
 			var Rnd= x.length > 13 ? Number(x).toPrecision(13) : x;
@@ -26,36 +25,34 @@ class App extends Component{
 		}
 	};
 
-	onHistoryItemClicked({target}){
-		const value= target.getAttribute('value');
-		this.setState({
-			result: value
-		});
-	}
-
 	reset=()=>{
 		this.setState({
 			result: '0'
 		})
 	};
 
-	clearLastChar=()=>{
-		this.setState({
-			result: this.state.result.substring(0, this.state.result.length - 1) || '0'
-		})
+	clearLastChar(){
+		if (/error|infinity|-infinity|NaN|undefined/i.test(this.state.result)){
+			this.reset();
+		} else{
+			this.setState({
+				result: this.state.result.substring(0, this.state.result.length - 1) || '0'
+			});
+		}
 	};
 
 	handleKey=e=>{ 
 		let key = e.key || e;
-		let x= this.state.result.split(/[\*\/\+\-\%]/);
-		if (/(Enter|\=)/.test(key)){
+		let x= this.state.result.split(/[*/+\-%]/);
+		if (/Enter|=/.test(key)){
 			this.calculate();
 		} else if (/^c$|^с$/i.test(key)){
 			this.reset();
 		} else if(/Backspace/.test(key)){
 			this.clearLastChar();
-		} else if (this.state.result.length <= 13){
-			if (/(error|infinity|-infinity|NaN|undefined)/.test(this.state.result)){
+		} else if (this.state.result.length <= 47 &&
+		/[*/+\-%().]|^\d$/.test(key)){
+			if (/error|infinity|-infinity|NaN|undefined/i.test(this.state.result)){
 				this.setState({
 					result: key
 				});
@@ -71,31 +68,31 @@ class App extends Component{
 				});
 			} else if(key === '+' &&
 				this.state.result !== '0' &&
-				!(/\*$|\.$|\/$|\+$|\-$|\($|\%$/).test(this.state.result)){
+				!/[*./+\-(%]$/.test(this.state.result)){
 				this.setState({
 					result: this.state.result + key
 				});
 			} else if(key === '-' &&
 				this.state.result !== '0' &&
-				!(/\*$|\.$|\/$|\+$|\-$|\($|\%$/).test(this.state.result)){
+				!/[*./+\-(%]$/.test(this.state.result)){
 				this.setState({
 					result: this.state.result + key
 				});
 			} else if(key === '*' &&
 				this.state.result !== '0' &&
-				!(/\*$|\.$|\/$|\+$|\-$|\($|\%$/).test(this.state.result)){
+				!/[*./+\-(%]$/.test(this.state.result)){
 				this.setState({
 					result: this.state.result + key
 				});
 			} else if(key === '/' &&
 				this.state.result !== '0' &&
-				!(/\*$|\.$|\/$|\+$|\-$|\($|\%$/).test(this.state.result)){
+				!/[*./+\-(%]$/.test(this.state.result)){
 				this.setState({
 					result: this.state.result + key
 				});
 			} else if(key === '%' &&
 				this.state.result !== '0' &&
-				!(/\*$|\.$|\/$|\+$|\-$|\($|\%$/).test(this.state.result)){
+				!/[*./+\-(%]$/.test(this.state.result)){
 				this.setState({
 					result: this.state.result + key
 				});
@@ -119,14 +116,14 @@ class App extends Component{
 					result: key
 				});
 			} else if(key === '(' && this.state.result !== '0' &&
-				!(/\($|\.$/).test(this.state.result) &&
-				(/\*$|\/$|\+$|\-$|\%$/).test(this.state.result)){
+				!/[(.]$/.test(this.state.result) &&
+				/[*/+\-%]$/.test(this.state.result)){
 				this.setState({
 					result: this.state.result + key
 				});
 			} else if(key === '0' && this.state.result !== '0' &&
-				!(/\($|\.$/).test(this.state.result) &&
-				(/\*$|\/$|\+$|\-$|\%$/).test(this.state.result)){
+				!/[(.]$/.test(this.state.result) &&
+				/[*/+\-%]$/.test(this.state.result)){
 				this.setState({
 					result: this.state.result + key
 				});
@@ -159,14 +156,3 @@ class App extends Component{
 }
 
 export default App;
-
-
-// set this in index.js
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import App from './Calculator/App';
-
-// ReactDOM.render(
-// 	<App />,
-// 	document.getElementById('root')
-// );
