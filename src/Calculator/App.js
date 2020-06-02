@@ -42,94 +42,95 @@ class App extends Component{
 	};
 
 	handleKey=e=>{ 
-		let key = e.key || e;
-		let x= this.state.result.split(/[*/+\-%]/);
+		const key = e.key || e;
+		const result= this.state.result;
+		const x= result.split(/[*/+\-%]/);
 		if (/Enter|=/.test(key)){
 			this.calculate();
 		} else if (/^c$|^с$/i.test(key)){
 			this.reset();
 		} else if(/Backspace/.test(key)){
 			this.clearLastChar();
-		} else if (this.state.result.length <= 47 &&
+		} else if (result.length <= 47 &&
 		/[*/+\-%().]|^\d$/.test(key)){
-			if (/error|infinity|-infinity|NaN|undefined/i.test(this.state.result)){
+			if (/error|infinity|-infinity|NaN|undefined/i.test(result)){
 				this.setState({
 					result: key
 				});
-			}	else if(/\d/.test(key) && this.state.result === '0'){
+			}	else if(/\d/.test(key) && result === '0'){
 				this.setState({
 					result: key
 				});
 			} else if(key === '.' &&
-				this.state.result.match(/\d$/) &&
+				result.match(/\d$/) &&
 				!/[d.]/.test(x[x.length -1])){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
 			} else if(key === '+' &&
-				this.state.result !== '0' &&
-				!/[*./+\-(%]$/.test(this.state.result)){
+				result !== '0' &&
+				!/[*./+\-(%]$/.test(result)){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
 			} else if(key === '-' &&
-				this.state.result !== '0' &&
-				!/[*./+\-(%]$/.test(this.state.result)){
+				result !== '0' &&
+				!/[*./+\-(%]$/.test(result)){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
 			} else if(key === '*' &&
-				this.state.result !== '0' &&
-				!/[*./+\-(%]$/.test(this.state.result)){
+				result !== '0' &&
+				!/[*./+\-(%]$/.test(result)){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
 			} else if(key === '/' &&
-				this.state.result !== '0' &&
-				!/[*./+\-(%]$/.test(this.state.result)){
+				result !== '0' &&
+				!/[*./+\-(%]$/.test(result)){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
 			} else if(key === '%' &&
-				this.state.result !== '0' &&
-				!/[*./+\-(%]$/.test(this.state.result)){
+				result !== '0' &&
+				!/[*./+\-(%]$/.test(result)){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
 			} else if(key === ')' &&
-				/\(/.test(this.state.result) && !/\)/.test(this.state.result) &&
+				/\(/.test(result) && !/\)/.test(result) &&
 				!/\(/.test(x[x.length -1]) &&
-				this.state.result.match(/\d$/)){
+				result.match(/\d$/)){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
-			} else if(key === ')' && this.state.result.match(/\d$/) &&
-				/\(/.test(this.state.result) &&
+			} else if(key === ')' && result.match(/\d$/) &&
+				/\(/.test(result) &&
 				!/\(/.test(x[x.length -1]) &&
-				this.state.result.match(/\(/g).length !==
-				this.state.result.match(/\)/g).length){
+				result.match(/\(/g).length !==
+				result.match(/\)/g).length){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
-			} else if(key === '(' && this.state.result === '0'){
+			} else if(key === '(' && result === '0'){
 				this.setState({
 					result: key
 				});
-			} else if(key === '(' && this.state.result !== '0' &&
-				!/[(.]$/.test(this.state.result) &&
-				/[*/+\-%]$/.test(this.state.result)){
+			} else if(key === '(' && result !== '0' &&
+				!/[(.]$/.test(result) &&
+				/[*/+\-%]$/.test(result)){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
-			} else if(key === '0' && this.state.result !== '0' &&
-				!/[(.]$/.test(this.state.result) &&
-				/[*/+\-%]$/.test(this.state.result)){
+			} else if(key === '0' && result !== '0' &&
+				!/[(.]$/.test(result) &&
+				/[*/+\-%]$/.test(result)){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
-			} else if(/\d/.test(key) && !/\)$/.test(this.state.result)){
+			} else if(/\d/.test(key) && !/\)$/.test(result)){
 				this.setState({
-					result: this.state.result + key
+					result: result + key
 				});
 			}
 		}
