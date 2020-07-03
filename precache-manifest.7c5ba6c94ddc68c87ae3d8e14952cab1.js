@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7dc43ff38dea001c3f4b5689887c5165",
+    "revision": "2d1c8435ac0b154c63424ff8f1735a8f",
     "url": "/Calculator-on-React/index.html"
   },
   {
-    "revision": "98dbd59c041f5c31483f",
-    "url": "/Calculator-on-React/static/css/main.2b38e0ef.chunk.css"
+    "revision": "761c469aa0d0b0a17f44",
+    "url": "/Calculator-on-React/static/css/main.9e7bc0fb.chunk.css"
   },
   {
     "revision": "5cb561074e2d78ed1046",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Calculator-on-React/static/js/2.846e2a06.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "98dbd59c041f5c31483f",
-    "url": "/Calculator-on-React/static/js/main.4dda6d33.chunk.js"
+    "revision": "761c469aa0d0b0a17f44",
+    "url": "/Calculator-on-React/static/js/main.05901a53.chunk.js"
   },
   {
     "revision": "18e899eb88cb2abcb93d",
