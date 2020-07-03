@@ -13,6 +13,7 @@ class App extends Component{
 
 	calculate(){
 		try {
+			// eslint-disable-next-line
 			var x= (eval(this.state.result)).toString();
 			var Rnd= x.length > 13 ? Number(x).toPrecision(13) : x;
 				this.setState({
