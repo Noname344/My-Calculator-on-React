@@ -1,15 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-
-class ResultComponent extends Component{
-	render(){
-		let {result} = this.props;
-		return (
-			<div className="result">
-				<p>{result}</p>
-			</div>
-		);
-	}
+function ResultComponent(props){
+	var {result} = props;
+	return (
+		<div className="result">
+			<p>{result}</p>
+		</div>
+	);
 }
 
 
