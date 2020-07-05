@@ -14,10 +14,15 @@ class App extends Component{
 	calculate(){
 		try {
 			// eslint-disable-next-line
-			var x= (eval(this.state.result)).toString();
-			var Rnd= x.length > 13 ? Number(x).toPrecision(13) : x;
+			var x= eval(this.state.result);
+			if (x.toString().length > 17 && !/\./.test(x)){
+				x= x.toPrecision(17)
+			}else if (x.toString().length > 17 && /\./.test(x)){
+				x= eval(x.toFixed(16))
+			}
+			
 				this.setState({
-					result: Rnd
+					result: x.toString()
 				});
 		} catch(e){
 			this.setState({
