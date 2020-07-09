@@ -3,7 +3,7 @@ import './App.css';
 import ResultComponent from './components/ResultComponent';
 import KeyPadComponent from "./components/KeyPadComponent";
 
-class App extends Component{
+export default class App extends Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -18,6 +18,7 @@ class App extends Component{
 			if (x.toString().length > 17 && !/\./.test(x)){
 				x= x.toPrecision(17)
 			}else if (x.toString().length > 17 && /\./.test(x)){
+				// eslint-disable-next-line
 				x= eval(x.toFixed(16))
 			}
 			
@@ -161,5 +162,3 @@ class App extends Component{
 		);
 	}
 }
-
-export default App;
