@@ -1,164 +1,118 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
-import ResultComponent from './components/ResultComponent';
 import KeyPadComponent from "./components/KeyPadComponent";
 
-export default class App extends Component{
-	constructor(props){
-		super(props);
-		this.state={
-			result: '0',
-		};
-	}
+export default function App(){
+	let [result, setResult]= useState('0');
 
-	calculate(){
+	function calculate(){
 		try {
 			// eslint-disable-next-line
-			var x= eval(this.state.result);
-			if (x.toString().length > 17 && !/\./.test(x)){
-				x= x.toPrecision(17)
-			}else if (x.toString().length > 17 && /\./.test(x)){
+			let x= eval(result);
+			if (x.toString().length > 16 && !/\./.test(x)){
+				x= x.toPrecision(16)
+			}else if (x.toString().length > 16 && /\./.test(x)){
 				// eslint-disable-next-line
 				x= eval(x.toFixed(16))
 			}
-			
-				this.setState({
-					result: x.toString()
-				});
+			setResult(x.toString());
 		} catch(e){
-			this.setState({
-				result: 'error'
-			})
+			setResult('error')
 		}
 	};
 
-	reset=()=>{
-		this.setState({
-			result: '0'
-		})
-	};
+	function reset(){
+		setResult('0');
+	}
 
-	clearLastChar(){
-		if (/error|infinity|-infinity|NaN|undefined/i.test(this.state.result)){
-			this.reset();
+	function clearLastChar(){
+		if (/error|infinity|-infinity|NaN|undefined/i.test(result)){
+			reset();
 		} else{
-			this.setState({
-				result: this.state.result.substring(0, this.state.result.length - 1) || '0'
-			});
+			setResult(result.substring(0, result.length - 1) || '0')
 		}
 	};
 
-	handleKey=e=>{ 
-		const key = e.key || e;
-		const result= this.state.result;
-		const x= result.split(/[*/+\-%]/);
+	function handleKey(e){
+		if (!e.key) e.blur(); // after mouse clear to keyboard bug fix
+		let key= e.key || e.name;
+		let x= result.split(/[*/+\-%]/);
 		if (/Enter|=/.test(key)){
-			this.calculate();
-		} else if (/^c$|^с$/i.test(key)){
-			this.reset();
-		} else if(/Backspace/.test(key)){
-			this.clearLastChar();
+			calculate();
+		} else if (/^c$/i.test(key)){
+			reset();
+		} else if (/Backspace/.test(key)){
+			clearLastChar();
 		} else if (result.length <= 47 &&
 		/[*/+\-%().]|^\d$/.test(key)){
 			if (/error|infinity|-infinity|NaN|undefined/i.test(result)){
-				this.setState({
-					result: key
-				});
+				setResult(key);
 			}	else if(/\d/.test(key) && result === '0'){
-				this.setState({
-					result: key
-				});
+				setResult(key);
 			} else if(key === '.' &&
 				result.match(/\d$/) &&
 				!/[d.]/.test(x[x.length -1])){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(key === '+' &&
 				result !== '0' &&
 				!/[*./+\-(%]$/.test(result)){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(key === '-' &&
 				result !== '0' &&
 				!/[*./+\-(%]$/.test(result)){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(key === '*' &&
 				result !== '0' &&
 				!/[*./+\-(%]$/.test(result)){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(key === '/' &&
 				result !== '0' &&
 				!/[*./+\-(%]$/.test(result)){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(key === '%' &&
 				result !== '0' &&
 				!/[*./+\-(%]$/.test(result)){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(key === ')' &&
 				/\(/.test(result) && !/\)/.test(result) &&
 				!/\(/.test(x[x.length -1]) &&
 				result.match(/\d$/)){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(key === ')' && result.match(/\d$/) &&
 				/\(/.test(result) &&
 				!/\(/.test(x[x.length -1]) &&
 				result.match(/\(/g).length !==
 				result.match(/\)/g).length){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(key === '(' && result === '0'){
-				this.setState({
-					result: key
-				});
+				setResult(key);
 			} else if(key === '(' && result !== '0' &&
 				!/[(.]$/.test(result) &&
 				/[*/+\-%]$/.test(result)){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(key === '0' && result !== '0' &&
 				!/[(.]$/.test(result) &&
 				/[*/+\-%]$/.test(result)){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			} else if(/\d/.test(key) && !/\)$/.test(result)){
-				this.setState({
-					result: result + key
-				});
+				setResult(result + key);
 			}
 		}
 	}
 
-	componentDidMount(){
-		document.addEventListener('keydown', this.handleKey);
-	}
+	useEffect(()=>{
+		document.addEventListener('keydown', handleKey);
+		return ()=> {
+			document.removeEventListener('keydown', handleKey);
+		}
+	});
 
-	componentWillUnmount(){
-		document.removeEventListener('keydown', this.handleKey);
-	}
-
-	render(){
-		return(
-			<div className="calculator-body">
-				<ResultComponent 
-					result={this.state.result}
-				/>
-				<KeyPadComponent onClick={this.handleKey}/>
+	return(
+		<div className="calculator-body">
+			<div className="result">
+				<p>{result}</p>
 			</div>
-		);
-	}
+			<KeyPadComponent onClick={handleKey}/>
+		</div>
+	);
 }

@@ -1,35 +1,83 @@
 import React from 'react';
 
-function KeyPadComponent(props){
+export default function KeyPadComponent(props){
 	return(
 		<div className="button">
-			<button name='(' onClick={e=> props.onClick(e.target.name)}>(</button>
-			<button name=')' onClick={e=> props.onClick(e.target.name)}>)</button>
-			<button className='width2' name='Backspace' style={{fontSize: '38px', padding: '15.7px 0'}} onClick={e=> props.onClick(e.target.name)}>↤</button>
+			<button name='('
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>(</button>
+			<button name=')'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>)</button>
+			<button name='Backspace'
+							className='width2 Backspace'
+							onClick={e=> props.onClick(e.target)}
+							tabIndex='-1'>↤</button>
 
-			<button name='%' onClick={e=> props.onClick(e.target.name)}>%</button>
-			<button name='*' style={{fontSize: '45px', padding: '8.8px 0'}} onClick={e=> props.onClick(e.target.name)}>*</button>
-			<button name='/' style={{fontSize: '36px', padding: '16.6px 0'}} onClick={e=> props.onClick(e.target.name)}>/</button>
-			<button name='C' onClick={e=> props.onClick(e.target.name)}>C</button>
+			<button name='%'
+							tabIndex='-1'
+						  onClick={e=> props.onClick(e.target)}>%</button>
+			<button name='*'
+							tabIndex='-1'
+							className='asterisk'
+							onClick={e=> props.onClick(e.target)}>*</button>
+			<button name='/'
+							tabIndex='-1'
+							className='dash'
+							onClick={e=> props.onClick(e.target)}>/</button>
+			<button name='C' tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>C</button>
 
-			<button name='7' onClick={e=> props.onClick(e.target.name)}>7</button>
-			<button name='8' onClick={e=> props.onClick(e.target.name)}>8</button>
-			<button name='9' onClick={e=> props.onClick(e.target.name)}>9</button>
-			<button name='-' style={{fontSize: '55px', padding: '7.27px 0'}} onClick={e=> props.onClick(e.target.name)}>-</button>
+			<button name='7'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>7</button>
+			<button name='8'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>8</button>
+			<button name='9'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>9</button>
+			<button name='-'
+							tabIndex='-1'
+							className='minus'
+							onClick={e=> props.onClick(e.target)}>-</button>
 			
-			<button name='4' onClick={e=> props.onClick(e.target.name)}>4</button>
-			<button name='5' onClick={e=> props.onClick(e.target.name)}>5</button>
-			<button name='6' onClick={e=> props.onClick(e.target.name)}>6</button>
-			<button name='+' 	style={{fontSize: '53px', padding: '7.54px 0', fontWeight: 'normal'}} onClick={e=> props.onClick(e.target.name)}>+</button>
+			<button name='4'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>4</button>
+			<button name='5'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>5</button>
+			<button name='6'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>6</button>
+			<button name='+'
+							tabIndex='-1'
+							className='plus'
+							onClick={e=> props.onClick(e.target)}>+</button>
 			
-			<button name='1' onClick={e=> props.onClick(e.target.name)}>1</button>
-			<button name='2' onClick={e=> props.onClick(e.target.name)}>2</button>
-			<button name='3' onClick={e=> props.onClick(e.target.name)}>3</button>
-			<button name='=' className='height2' style={{fontSize: '40px', padding: '10px 0'}} onClick={e=> props.onClick(e.target.name)}>=</button>
-			<button name='0' className='width2' onClick={e=> props.onClick(e.target.name)}>0</button>
-			<button name='.' style={{fontSize: '45px', padding: '8.8px 0'}} onClick={e=> props.onClick(e.target.name)}>.</button>
+			<button name='1'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>1</button>
+			<button name='2'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>2</button>
+			<button name='3'
+							tabIndex='-1'
+							onClick={e=> props.onClick(e.target)}>3</button>
+			<button name='='
+							tabIndex='-1'
+							className='height2 equals'
+							onClick={e=> props.onClick(e.target)}>=</button>
+							
+			<button name='0'
+							tabIndex='-1'
+							className='width2'
+							onClick={e=> props.onClick(e.target)}>0</button>
+			<button name='.'
+							tabIndex='-1'
+							className='dot'
+							onClick={e=> props.onClick(e.target)}>.</button>
 		</div>
 	);
 }
-
-export default KeyPadComponent;
